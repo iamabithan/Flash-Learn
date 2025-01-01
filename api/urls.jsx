@@ -5,7 +5,9 @@ const URL_CONSTANTS = {
   signUp:'/auth/signup',
   getVideo:'/videos',
   addVideo:'/addvideo',
-  getVideoById:'/video/:id'
+  getVideoById:'/video/:id',
+  verifyUser:'/verify',
+  userDetail:'/user/'
 };
 
 export { URL_CONSTANTS };

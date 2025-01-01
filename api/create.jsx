@@ -8,4 +8,7 @@ export const postSignUpnRequestData = (params) =>
     postRequest(URL_CONSTANTS.signUp, params);
 export const postAddVideo = (params) =>
     postRequest(URL_CONSTANTS.addVideo, params);
+export const verifyUser = (params) =>
+  postRequest(URL_CONSTANTS.verifyUser, params);
+
  
