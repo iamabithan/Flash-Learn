@@ -1,7 +1,7 @@
 /** ****************************** Import libs *********************************** */
 
 const URL_CONSTANTS = {
-  login:'/login',
+  login:'/auth/login',
   signUp:'/auth/signup',
   getVideo:'/videos',
   addVideo:'/addvideo',
