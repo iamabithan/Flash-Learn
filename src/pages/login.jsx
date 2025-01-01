@@ -1,17 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import InputField from '../components/Input';
 import Button from '../components/Button';
+import { postLoginRequestData } from '../../api/create';
+import { getVideo } from '../../api/list';
 
 const Login = () => {
+
+  
+
   const validationSchema = Yup.object({
     email: Yup.string().email('Invalid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
   });
 
   console.log("Login page")
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const videos = await getVideo(); 
+        console.log('Fetched videos:', videos);
+      } catch (error) {
+        console.error('Error fetching videos:', error);
+      }
+    };
+
+    fetchVideos();
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
