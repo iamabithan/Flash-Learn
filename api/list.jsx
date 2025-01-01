@@ -8,3 +8,5 @@ export const getVideoById = (params) =>
   getRequest(URL_CONSTANTS.getVideoById, params);
 export const getUserDetailById = (id) =>
   getRequest(URL_CONSTANTS.userDetail+id);
+export const getVideosByGrade = (grade) =>
+  getRequest(URL_CONSTANTS.getVideoByGrade+grade);

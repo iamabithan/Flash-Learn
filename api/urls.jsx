@@ -7,7 +7,8 @@ const URL_CONSTANTS = {
   addVideo:'/addvideo',
   getVideoById:'/video/:id',
   verifyUser:'/verify',
-  userDetail:'/user/'
+  userDetail:'/user/',
+  getVideoByGrade:'/videos/grade/',
 };
 
 export { URL_CONSTANTS };

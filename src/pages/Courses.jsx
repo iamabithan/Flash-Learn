@@ -1,12 +1,12 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { getUserDetailById } from '../../api/list';
+import { getUserDetailById, getVideosByGrade } from '../../api/list';
 
 const Dashboard = () => {
   const [userDetails, setUserDetails] = useState(null);
+  const [recommendedVideo, setRecommendedVideo] = useState(null);
 
   useEffect(() => {
-    const fetchUserDetails = async () => {
+    const fetchUserDataAndVideos = async () => {
       try {
         const token = localStorage.getItem('authToken');
 
@@ -20,28 +20,43 @@ const Dashboard = () => {
         const userId = payload.user_id;
 
         // Fetch user details from the API
-        const response = await getUserDetailById(userId); // Add 'await' here
-        setUserDetails(response.data);
+        const userResponse = await getUserDetailById(userId);
+        const userDetails = userResponse.data;
+        setUserDetails(userDetails);
+
+        // Fetch recommended videos by grade
+        const videoResponse = await getVideosByGrade(userDetails.grade);
+        if (videoResponse.data.length > 0) {
+          // Assuming you want the first video as the recommended one
+          setRecommendedVideo(videoResponse.data[0]);
+        } else {
+          console.log('No videos found for the user grade.');
+        }
       } catch (error) {
-        console.error('Error fetching user details:', error);
+        console.error('Error fetching user details or videos:', error);
         // Redirect to login if not authenticated
         window.location.href = '/login';
       }
     };
 
-    fetchUserDetails();
+    fetchUserDataAndVideos();
   }, []);
 
-  if (!userDetails) {
+  if (!userDetails || !recommendedVideo) {
     return <div>Loading...</div>;
   }
-  console.log({ userDetails });
 
   return (
     <div>
       <h1>Welcome, {userDetails.name}!</h1>
       <p>Grade: {userDetails.grade}</p>
       <p>Medium: {userDetails.medium}</p>
+      <h1>Recommended Video</h1>
+      <p>Title: {recommendedVideo.title}</p>
+      <p>Topic: {recommendedVideo.topic}</p>
+      <a href={recommendedVideo.url} target="_blank" rel="noopener noreferrer">
+        Watch Video
+      </a>
     </div>
   );
 };
