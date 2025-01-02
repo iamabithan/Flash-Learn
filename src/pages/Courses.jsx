@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getUserDetailById, getVideosByGrade } from '../../api/list';
 import { getYtThumbnail } from '../../api/create';
 
@@ -6,6 +7,7 @@ const Dashboard = () => {
   const [userDetails, setUserDetails] = useState(null);
   const [videos, setVideos] = useState([]);
   const [thumbnails, setThumbnails] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserDataAndVideos = async () => {
@@ -42,6 +44,10 @@ const Dashboard = () => {
     return <div>Loading...</div>;
   }
 
+  const handleVideoClick = (video) => {
+    navigate('/content', { state: { video } });
+  };
+
   return (
     <div className="flex flex-col">
       <div className="ml-2 p-4 flex-1">
@@ -52,17 +58,13 @@ const Dashboard = () => {
         <h2 className="mt-6 text-2xl font-semibold">Recommended Videos</h2>
         <ul className="space-y-4 mt-4">
           {videos.map((video, index) => (
-            <li key={video.id} className="border p-4 rounded shadow">
+            <li
+              key={video.id}
+              className="border p-4 rounded shadow cursor-pointer"
+              onClick={() => handleVideoClick(video)}
+            >
               <p className="text-lg font-medium">Title: {video.title}</p>
               <p>Topic: {video.topic}</p>
-              <a
-                href={video.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-500 hover:underline"
-              >
-                Watch Video
-              </a>
               {thumbnails[index] && (
                 <div className="mt-2">
                   <img

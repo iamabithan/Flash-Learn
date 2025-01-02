@@ -6,6 +6,7 @@ import Dashboard from './pages/Courses';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
 import Relax from './pages/relax';
+import Content from './pages/Video';
 
 const App = () => {
   const authToken = localStorage.getItem('authToken');
@@ -21,9 +22,11 @@ const App = () => {
           <Route element={<Layout />}>
             <Route path='/dashboard' element={<Dashboard />} />
             <Route path='/relax' element={<Relax />} />
+            <Route path='/content' element={<Content />} />
           </Route>
         </Route>
       </Routes>
+      
     </Router>
   );
 };

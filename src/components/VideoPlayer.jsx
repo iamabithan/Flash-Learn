@@ -1,43 +1,113 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useRef, useEffect } from 'react';
+import ReactPlayer from 'react-player';
+import { FaPlay, FaPause, FaExpand, FaCompress } from 'react-icons/fa';
 
-const VideoApp = () => {
-  const [videos, setVideos] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+const CustomVideoPlayer = ({ videoUrl, thumbnailUrl, className = '', style = {} }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const playerRef = useRef(null);
+  const containerRef = useRef(null);
 
-  // Fetch videos from the backend
-  const fetchVideos = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.get('http://localhost:3000/api/videoplayer'); // Adjust route if needed
-      setVideos(response.data);
-    } catch (err) {
-      console.error(err);
-      setError('Failed to fetch videos.');
-    } finally {
-      setLoading(false);
+  const togglePlay = () => {
+    setIsPlaying((prev) => !prev);
+  };
+
+  const handleProgress = (state) => {
+    setProgress(state.played * 100);
+    setCurrentTime(state.playedSeconds);
+  };
+
+  const handleDuration = (duration) => {
+    setDuration(duration);
+  };
+
+  const handleSeek = (e) => {
+    const seekTo = (e.target.value / 100) * duration;
+    playerRef.current.seekTo(seekTo);
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  const handleFullScreen = () => {
+    if (containerRef.current) {
+      if (isFullscreen) {
+        document.exitFullscreen?.();
+        setIsFullscreen(false);
+      } else {
+        containerRef.current.requestFullscreen?.();
+        setIsFullscreen(true);
+      }
     }
   };
 
-  useEffect(() => {
-    fetchVideos();
-  }, []);
-
   return (
-    <div>
-      <h1>Video App</h1>
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <ul>
-        {videos.map((video) => (
-          <li key={video.id}>
-            {video.title} - <a href={video.url} target="_blank" rel="noreferrer">Watch</a>
-          </li>
-        ))}
-      </ul>
+    <div
+      ref={containerRef}
+      className={`relative w-full h-[33vh] sm:h-[66vh] bg-black rounded-lg overflow-hidden shadow-lg ${className}`}
+      style={style}
+    >
+      {!isPlaying && thumbnailUrl && (
+        <div className='absolute inset-0 flex items-center justify-center bg-black cursor-pointer' onClick={togglePlay}>
+          <img src={thumbnailUrl} alt='Video Thumbnail' className='object-cover w-full h-full' />
+          <div className='absolute inset-0 bg-black/50 flex items-center justify-center'>
+            <button className='p-4 bg-blue-500 text-white rounded-full'>
+              <FaPlay size={24} />
+            </button>
+          </div>
+        </div>
+      )}
+      <ReactPlayer
+        ref={playerRef}
+        url={videoUrl}
+        playing={isPlaying}
+        controls={false}
+        width='100%'
+        height='100%'
+        config={{
+          youtube: {
+            playerVars: {
+              modestbranding: 1,
+              rel: 0,
+              showinfo: 0,
+              iv_load_policy: 3,
+              controls: 0,
+              fs: 0,
+            },
+          },
+        }}
+        onProgress={handleProgress}
+        onDuration={handleDuration}
+        onPlay={() => setIsPlaying(true)} // Sync state when playing
+        onPause={() => setIsPlaying(false)} // Sync state when paused
+      />
+
+      <div className='absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black via-black/70 to-transparent'>
+        <input
+          type='range'
+          value={progress}
+          onChange={handleSeek}
+          className='w-full h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg appearance-none cursor-pointer'
+        />
+        <div className='flex justify-between items-center text-white mt-2'>
+          <span className='text-sm'>{formatTime(currentTime)}</span>
+          <button onClick={togglePlay} className='p-2 bg-blue-500 hover:bg-blue-600 text-white rounded-full'>
+            {isPlaying ? <FaPause size={16} /> : <FaPlay size={16} />}
+          </button>
+          <span className='text-sm'>{formatTime(duration)}</span>
+          <button onClick={handleFullScreen} className='p-2 bg-gray-800 hover:bg-gray-900 text-white rounded-full'>
+            {isFullscreen ? <FaCompress size={16} /> : <FaExpand size={16} />}
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default VideoApp;
+export default CustomVideoPlayer;
