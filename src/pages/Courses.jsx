@@ -1,49 +1,37 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getUserDetailById, getVideosByGrade } from '../../api/list';
 import { getYtThumbnail } from '../../api/create';
 
 const Dashboard = () => {
   const [userDetails, setUserDetails] = useState(null);
-  const [videos, setVideos] = useState([]); // Store all recommended videos
-  const [thumbnails, setThumbnails] = useState([]); // Store all generated thumbnails
+  const [videos, setVideos] = useState([]);
+  const [thumbnails, setThumbnails] = useState([]);
 
   useEffect(() => {
     const fetchUserDataAndVideos = async () => {
       try {
         const token = localStorage.getItem('authToken');
+        if (!token) throw new Error('User is not authenticated.');
 
-        if (!token) {
-          console.log('User is not authenticated.');
-          throw new Error('User is not authenticated.');
-        }
-
-        // Decode the user ID from the token
         const payload = JSON.parse(atob(token.split('.')[1]));
         const userId = payload.user_id;
 
-        // Fetch user details from the API
         const userResponse = await getUserDetailById(userId);
-        const userDetails = userResponse.data;
-        setUserDetails(userDetails);
+        setUserDetails(userResponse.data);
 
-        // Fetch recommended videos by grade
-        const videoResponse = await getVideosByGrade(userDetails.grade);
+        const videoResponse = await getVideosByGrade(userResponse.data.grade);
         const videoList = videoResponse.data;
 
+        setVideos(videoList);
         if (videoList.length > 0) {
-          setVideos(videoList);
-          console.log({videoList})
-          // Extract URLs and fetch thumbnails
           const urls = videoList.map((video) => video.url);
-          const thumbnailResponse = await getYtThumbnail(urls); // Assuming getYtThumbnail handles multiple URLs
-          setThumbnails(thumbnailResponse.data); // Save the thumbnails
-        } else {
-          console.log('No videos found for the user grade.');
+          const thumbnailResponse = await getYtThumbnail(urls);
+          setThumbnails(thumbnailResponse.data);
         }
       } catch (error) {
-        console.error('Error fetching user details or videos:', error);
-        // Redirect to login if not authenticated
-        // window.location.href = '/login';
+        console.error('Error fetching data:', error);
+        // Redirect if not authenticated
+        window.location.href = '/login';
       }
     };
 
@@ -55,27 +43,39 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
-      <h1>Welcome, {userDetails.name}!</h1>
-      <p>Grade: {userDetails.grade}</p>
-      <p>Medium: {userDetails.medium}</p>
-      <h1>Recommended Videos</h1>
-      <ul>
-        {videos.map((video, index) => (
-          <li key={video.id}>
-            <p>Title: {video.title}</p>
-            <p>Topic: {video.topic}</p>
-            <a href={video.url} target="_blank" rel="noopener noreferrer">
-              Watch Video
-            </a>
-            {thumbnails[index] && (
-              <div>
-                <img src={thumbnails[index].thumbnails.high} alt={`Thumbnail of ${video.title}`} />
-              </div>
-            )}
-          </li>
-        ))}
-      </ul>
+    <div className="flex flex-col">
+      <div className="ml-2 p-4 flex-1">
+        <h1 className="text-3xl font-bold">Welcome, {userDetails.name}!</h1>
+        <p>Grade: {userDetails.grade}</p>
+        <p>Medium: {userDetails.medium}</p>
+
+        <h2 className="mt-6 text-2xl font-semibold">Recommended Videos</h2>
+        <ul className="space-y-4 mt-4">
+          {videos.map((video, index) => (
+            <li key={video.id} className="border p-4 rounded shadow">
+              <p className="text-lg font-medium">Title: {video.title}</p>
+              <p>Topic: {video.topic}</p>
+              <a
+                href={video.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-500 hover:underline"
+              >
+                Watch Video
+              </a>
+              {thumbnails[index] && (
+                <div className="mt-2">
+                  <img
+                    src={thumbnails[index].thumbnails.high}
+                    alt={`Thumbnail of ${video.title}`}
+                    className="w-40 h-24 object-cover rounded"
+                  />
+                </div>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
