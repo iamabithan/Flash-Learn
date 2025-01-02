@@ -9,6 +9,7 @@ const URL_CONSTANTS = {
   verifyUser:'/verify',
   userDetail:'/user/',
   getVideoByGrade:'/videos/grade/',
+  ytthumbnail:'/thumbnail'
 };
 
 export { URL_CONSTANTS };

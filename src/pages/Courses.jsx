@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { getUserDetailById, getVideosByGrade } from '../../api/list';
+import { getYtThumbnail } from '../../api/create';
 
 const Dashboard = () => {
   const [userDetails, setUserDetails] = useState(null);
-  const [recommendedVideo, setRecommendedVideo] = useState(null);
+  const [videos, setVideos] = useState([]); // Store all recommended videos
+  const [thumbnails, setThumbnails] = useState([]); // Store all generated thumbnails
 
   useEffect(() => {
     const fetchUserDataAndVideos = async () => {
@@ -26,23 +28,29 @@ const Dashboard = () => {
 
         // Fetch recommended videos by grade
         const videoResponse = await getVideosByGrade(userDetails.grade);
-        if (videoResponse.data.length > 0) {
-          // Assuming you want the first video as the recommended one
-          setRecommendedVideo(videoResponse.data[0]);
+        const videoList = videoResponse.data;
+
+        if (videoList.length > 0) {
+          setVideos(videoList);
+          console.log({videoList})
+          // Extract URLs and fetch thumbnails
+          const urls = videoList.map((video) => video.url);
+          const thumbnailResponse = await getYtThumbnail(urls); // Assuming getYtThumbnail handles multiple URLs
+          setThumbnails(thumbnailResponse.data); // Save the thumbnails
         } else {
           console.log('No videos found for the user grade.');
         }
       } catch (error) {
         console.error('Error fetching user details or videos:', error);
         // Redirect to login if not authenticated
-        window.location.href = '/login';
+        // window.location.href = '/login';
       }
     };
 
     fetchUserDataAndVideos();
   }, []);
 
-  if (!userDetails || !recommendedVideo) {
+  if (!userDetails) {
     return <div>Loading...</div>;
   }
 
@@ -51,12 +59,23 @@ const Dashboard = () => {
       <h1>Welcome, {userDetails.name}!</h1>
       <p>Grade: {userDetails.grade}</p>
       <p>Medium: {userDetails.medium}</p>
-      <h1>Recommended Video</h1>
-      <p>Title: {recommendedVideo.title}</p>
-      <p>Topic: {recommendedVideo.topic}</p>
-      <a href={recommendedVideo.url} target="_blank" rel="noopener noreferrer">
-        Watch Video
-      </a>
+      <h1>Recommended Videos</h1>
+      <ul>
+        {videos.map((video, index) => (
+          <li key={video.id}>
+            <p>Title: {video.title}</p>
+            <p>Topic: {video.topic}</p>
+            <a href={video.url} target="_blank" rel="noopener noreferrer">
+              Watch Video
+            </a>
+            {thumbnails[index] && (
+              <div>
+                <img src={thumbnails[index].thumbnails.high} alt={`Thumbnail of ${video.title}`} />
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
