@@ -50,7 +50,7 @@ const CustomVideoPlayer = ({ videoUrl, thumbnailUrl, className = '', style = {} 
   return (
     <div
       ref={containerRef}
-      className={`relative w-full h-[33vh] sm:h-[66vh] bg-black rounded-lg overflow-hidden shadow-lg ${className}`}
+      className={`relative sm:h-[66vh] bg-black rounded-lg overflow-hidden shadow-lg ${className}`}
       style={style}
     >
       {!isPlaying && thumbnailUrl && (

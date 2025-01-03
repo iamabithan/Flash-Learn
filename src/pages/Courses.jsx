@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getUserDetailById, getVideosByGrade } from '../../api/list';
 import { getYtThumbnail } from '../../api/create';
+import CoursesCard from '../components/CoursesCard'; // Adjust the path as needed
 
 const Dashboard = () => {
   const [userDetails, setUserDetails] = useState(null);
@@ -56,27 +57,21 @@ const Dashboard = () => {
         <p>Medium: {userDetails.medium}</p>
 
         <h2 className="mt-6 text-2xl font-semibold">Recommended Videos</h2>
-        <ul className="space-y-4 mt-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
           {videos.map((video, index) => (
-            <li
+            <CoursesCard
               key={video.id}
-              className="border p-4 rounded shadow cursor-pointer"
+              image={thumbnails[index]?.thumbnails?.high || 'https://via.placeholder.com/400x250'}
+              // logo="https://via.placeholder.com/150x50" // Replace with a proper logo URL or data
+              university={video.topic || 'Unknown Topic'}
+              program={video.title}
+              duration={`${video.duration || 'Unknown Duration'}`}
+              badge={video.badge || 'Recommended'}
+              linkText="View Video"
               onClick={() => handleVideoClick(video)}
-            >
-              <p className="text-lg font-medium">Title: {video.title}</p>
-              <p>Topic: {video.topic}</p>
-              {thumbnails[index] && (
-                <div className="mt-2">
-                  <img
-                    src={thumbnails[index].thumbnails.high}
-                    alt={`Thumbnail of ${video.title}`}
-                    className="w-40 h-24 object-cover rounded"
-                  />
-                </div>
-              )}
-            </li>
+            />
           ))}
-        </ul>
+        </div>
       </div>
     </div>
   );

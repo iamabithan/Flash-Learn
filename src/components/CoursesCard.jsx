@@ -1,8 +1,11 @@
 import React from 'react';
 
-const CoursesCard = ({ image, logo, university, program, duration, badge, linkText }) => {
+const CoursesCard = ({ image, logo, university, program, duration, badge, linkText, onClick }) => {
   return (
-    <div className="bg-white shadow-md rounded-lg overflow-hidden">
+    <div
+      className="bg-white shadow-md rounded-lg overflow-hidden cursor-pointer hover:shadow-lg transition-shadow"
+      onClick={onClick}
+    >
       {/* Image Section */}
       <div className="relative">
         <img
@@ -10,13 +13,13 @@ const CoursesCard = ({ image, logo, university, program, duration, badge, linkTe
           alt="University"
           className="w-full h-48 object-cover"
         />
-        <div className="absolute inset-0 flex items-center justify-center">
+        {/* <div className="absolute inset-0 flex items-center justify-center">
           <img
             src={logo}
             alt="University Logo"
             className="bg-white rounded p-1 shadow-md"
           />
-        </div>
+        </div> */}
       </div>
 
       {/* Content Section */}
@@ -29,7 +32,13 @@ const CoursesCard = ({ image, logo, university, program, duration, badge, linkTe
             {badge}
           </span>
         </div>
-        <button className="mt-4 w-full text-center text-blue-600 font-semibold hover:underline">
+        <button
+          className="mt-4 w-full text-center text-blue-600 font-semibold hover:underline"
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent the button click from triggering the card click
+            onClick();
+          }}
+        >
           {linkText}
         </button>
       </div>
