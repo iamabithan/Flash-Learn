@@ -18,10 +18,10 @@ function Sidebar() {
   };
 
   return (
-    <div className='relative'>
-      {/* Hamburger button for smaller screens */}
+    <div className="relative">
+      {/* Hamburger Button */}
       <button
-        className='md:hidden p-4 pl-0 text-slate-800 fixed top-4 left-4 rounded-full z-50'
+        className="md:hidden p-3 text-white bg-gray-800 hover:bg-gray-700 fixed top-4 left-4 rounded-full shadow-lg z-50 transition-transform duration-300"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
         <FaBars size={24} />
@@ -29,44 +29,70 @@ function Sidebar() {
 
       {/* Sidebar */}
       <div
-        className={`bg-slate-700 text-gray-100 fixed top-0 left-0 h-full p-5 shadow-lg z-40 transform ${
+        className={`fixed top-0 left-0 h-full bg-gray-900 text-white shadow-lg z-40 transform ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 ease-in-out md:translate-x-0 md:relative md:w-64`}
+        } transition-transform duration-300 md:translate-x-0 md:relative md:w-64`}
       >
-        <h1 className='text-white text-2xl font-bold mb-6 mt-8'>Student Sidebar</h1>
-        <div className='flex flex-col space-y-4'>
+        {/* Sidebar Header */}
+        <div className="p-6 border-b border-gray-700">
+          <h1 className="text-3xl font-semibold text-gray-100">Student Portal</h1>
+          <p className="text-sm text-gray-400">Your learning companion</p>
+        </div>
+
+        {/* Navigation Links */}
+        <nav className="mt-6 flex flex-col space-y-4 px-4">
           <Link
-            to='/dashboard'
-            className='flex items-center text-lg px-4 py-2 space-x-3 rounded-md hover:bg-slate-600 transition-all duration-300'
+            to="/dashboard"
+            className="flex items-center p-3 rounded-lg text-gray-200 hover:bg-gray-700 hover:text-white transition-colors duration-300"
             onClick={() => setIsSidebarOpen(false)}
           >
-            <FaTachometerAlt />
-            <span>Dashboard</span>
+            <FaTachometerAlt size={20} className="mr-3" />
+            <span className="text-lg">Dashboard</span>
           </Link>
+
           <Link
-            to='/relax'
-            className='flex items-center text-lg px-4 py-2 space-x-3 rounded-md hover:bg-slate-600 transition-all duration-300'
+            to="/relax"
+            className="flex items-center p-3 rounded-lg text-gray-200 hover:bg-gray-700 hover:text-white transition-colors duration-300"
             onClick={() => setIsSidebarOpen(false)}
           >
-            <FaSpa />
-            <span>Relax</span>
+            <FaSpa size={20} className="mr-3" />
+            <span className="text-lg">Relax</span>
           </Link>
+
           <button
-            className='flex items-center text-lg px-4 py-2 space-x-3 rounded-md hover:bg-red-600 transition-all duration-300'
+            className="flex items-center p-3 rounded-lg text-gray-200 hover:bg-red-600 hover:text-white transition-colors duration-300"
             onClick={() => {
               setIsSidebarOpen(false);
               setIsModalOpen(true);
             }}
           >
-            <FaSignOutAlt />
-            <span>Logout</span>
+            <FaSignOutAlt size={20} className="mr-3" />
+            <span className="text-lg">Logout</span>
           </button>
+        </nav>
+
+        {/* Footer */}
+        <div className="absolute bottom-6 left-6">
+          <p className="text-sm text-gray-600">
+            © 2024 <span className="text-gray-400">Your Company</span>
+          </p>
         </div>
-        <ConfirmationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleLogout} />
       </div>
 
-      {/* Overlay for smaller screens */}
-      {isSidebarOpen && <div className='fixed inset-0 bg-black bg-opacity-50 md:hidden z-30' onClick={() => setIsSidebarOpen(false)}></div>}
+      {/* Overlay for Small Screens */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 md:hidden z-30"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleLogout}
+      />
     </div>
   );
 }
