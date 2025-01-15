@@ -11,6 +11,8 @@ export const postAddVideo = (params) =>
 export const verifyUser = (uid) =>
   postRequest(URL_CONSTANTS.verifyUser, {uid});
 export const getYtThumbnail = (urls) =>
-  postRequest(URL_CONSTANTS.ytthumbnail, { urls }); // Send 'urls' directly as the payload; 
+  postRequest(URL_CONSTANTS.ytthumbnail, { urls });
+export const addRelaxVideo = (params) =>
+  postRequest(URL_CONSTANTS.addRelax, params);
 
  

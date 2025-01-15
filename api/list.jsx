@@ -12,3 +12,5 @@ export const getAllUsers = (params) =>
   getRequest(URL_CONSTANTS.userDetail,params);
 export const getVideosByGrade = (grade) =>
   getRequest(URL_CONSTANTS.getVideoByGrade+grade);
+export const getRelaxVideosByGrade = (grade) =>
+  getRequest(URL_CONSTANTS.getRelaxVideoByGrade+grade);
