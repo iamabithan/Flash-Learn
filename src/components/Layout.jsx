@@ -11,7 +11,7 @@ function Layout() {
       <div className='flex flex-1 flex-col'>
         {/* Admin Header */}
         {/* <AdminHeader setOpen={setOpenSidebar} /> */}
-        <main className='flex-1 flex bg-muted/40'>
+        <main className='flex-1 bg-muted/40'>
           <Outlet />
         </main>
       </div>
