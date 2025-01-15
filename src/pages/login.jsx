@@ -4,8 +4,9 @@ import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import InputField from '../components/Input';
 import Button from '../components/Button';
-import { postLoginRequestData } from '../../api/create';
+import { postLoginRequestData, verifyUser } from '../../api/create';
 import Notification from '../components/Status'; // Assuming you have a reusable notification component
+import { fetchUserRole, getCurrentUserRole } from '../components/userRole';
 
 const Login = () => {
   const [notification, setNotification] = useState({ message: '', type: '' });
@@ -18,14 +19,39 @@ const Login = () => {
 
   const handleLogin = async (values) => {
     try {
-      const response = await postLoginRequestData(values); // API call to login
-      console.log(response)
-      const { token } = response;
+      // API call to login
+      const response = await postLoginRequestData(values);
+      console.log('Login Response:', response);
 
-      localStorage.setItem('authToken', token); // Store token
+      const { token } = response;
+      localStorage.setItem('authToken', token); // Store token locally
+      await fetchUserRole(); // Call fetchUserRole to determine the user's role
+      const role = getCurrentUserRole(); // Get the updated role
+
       setNotification({ message: 'Login successful!', type: 'success' });
 
-      setTimeout(() => navigate('/dashboard'), 1000); // Redirect after showing success message
+      // Decode the token to get the user ID
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const uid = payload.user_id;
+
+      // Verify user role
+      const userResponse = await verifyUser(uid);
+
+      console.log('User Role Verification:', userResponse);
+
+      setTimeout(() => {
+        // Navigate based on role
+        if (role === 'user') {
+          navigate('/dashboard');
+        } else if (role === 'admin') {
+          navigate('/users');
+        } else {
+          setNotification({ 
+            message: 'User role is not recognized.', 
+            type: 'error' 
+          });
+        }
+      }, 1000); // Delay to show success notification
     } catch (error) {
       console.error('Login error:', error);
       setNotification({ 
