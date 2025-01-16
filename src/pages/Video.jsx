@@ -17,25 +17,25 @@ const Content = () => {
   console.log({ video });
 
   return (
-    <div className="p-6 flex flex-col items-center w-full h-full">
-      <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
+    <div className='p-6 flex flex-col items-center w-full h-full'>
+      <div className='w-full max-w-4xl bg-white rounded-lg shadow-lg p-6'>
         {/* Back Button */}
         <button
-          onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold mb-4"
+          onClick={() => navigate(-1)} // Navigate to the previous page
+          className='flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold mb-4'
         >
           <FaArrowLeft />
-          Back to Dashboard
+          Back to Previous Page
         </button>
 
         {/* Video Player */}
         <CustomVideoPlayer videoUrl={video.url} thumbnailUrl={video.thumbnail} />
 
         {/* Video Details */}
-        <div className="mt-6">
-          <h1 className="text-3xl font-bold text-gray-800">{video.title}</h1>
-          <p className="text-lg text-gray-600 mt-2">
-            <span className="font-semibold">Topic:</span> {video.topic}
+        <div className='mt-6'>
+          <h1 className='text-3xl font-bold text-gray-800'>{video.title}</h1>
+          <p className='text-lg text-gray-600 mt-2'>
+            <span className='font-semibold'>Topic:</span> {video.topic}
           </p>
         </div>
       </div>
