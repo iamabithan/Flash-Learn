@@ -103,11 +103,14 @@ function Sidebar() {
       </button>
 
       {/* Sidebar */}
-      <div
-        className={`fixed top-0 left-0 h-full ${userRole === 'admin' ? 'bg-pink-600' : 'bg-gray-900'} text-white shadow-lg z-40 transform ${
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 md:translate-x-0 md:relative md:w-64`}
-      >
+    <div
+      className={`fixed top-0 left-0 h-screen ${
+        userRole === 'admin' ? 'bg-pink-600' : 'bg-gray-900'
+      } text-white shadow-lg z-40 transform ${
+        isSidebarOpen ? 'translate-x-0' : 'md:translate-x-0 -translate-x-full'
+      } transition-transform duration-300 md:translate-x-0 md:w-64 overflow-y-auto`}
+    >
+
         {/* Sidebar Header */}
         <div className='p-6 border-b border-gray-700'>
           <h1 className='text-3xl font-semibold text-gray-100'>{userRole === 'admin' ? 'Admin Panel' : 'Student Portal'}</h1>
