@@ -14,7 +14,7 @@ const URL_CONSTANTS = {
   ytthumbnail:'/thumbnail',
   verifyUser:'verify-admin',
   allRelaxVideo:'fetchRelaxVideos',
-  addRelax:'/add/relax/video'
+  addRelax:'/add/relax/video',
 };
 
 export { URL_CONSTANTS };
