@@ -27,6 +27,7 @@ const Login = () => {
       localStorage.setItem('authToken', token); // Store token locally
       await fetchUserRole(); // Call fetchUserRole to determine the user's role
       const role = getCurrentUserRole(); // Get the updated role
+      localStorage.setItem('role',role)
 
       setNotification({ message: 'Login successful!', type: 'success' });
 
