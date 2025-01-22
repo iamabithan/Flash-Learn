@@ -25,10 +25,10 @@ function Sidebar() {
 
   const handleLogout = async () => {
     try {
-      await localStorage.removeItem("authToken");
-      await localStorage.removeItem("role");
-      console.log("User logged out successfully");
-      window.location.href = "/login";
+      await localStorage.removeItem('authToken');
+      await localStorage.removeItem('role');
+      console.log('User logged out successfully');
+      window.location.href = '/'; // Redirect to login page
     } catch (error) {
       console.error("Error logging out:", error);
     }
@@ -66,9 +66,8 @@ function Sidebar() {
 
   return (
     <div className="relative">
-      {/* Hamburger Button */}
       <button
-        className="md:hidden p-3 text-white bg-gray-800 hover:bg-gray-700 fixed top-4 left-4 rounded-full shadow-lg z-50 transition-transform duration-300"
+        className="md:hidden p-3 text-white fixed top-4 left-4 rounded-full shadow-lg z-50 transition-transform duration-300"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
         <FaBars size={24} />

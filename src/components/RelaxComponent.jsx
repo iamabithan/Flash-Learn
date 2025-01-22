@@ -44,9 +44,6 @@ const Relax = ({ videoUrl, thumbnail, title, username, description, tags }) => {
 
   return (
     <div className="flex h-screen snap-start">
-      {/* Sidebar */}
-      <div className="w-64 bg-gray-900 flex flex-col items-center py-6 shadow-lg hidden md:flex">
-      </div>
 
       {/* Video Content */}
       <div className="flex justify-center items-center flex-1 py-4">
@@ -63,13 +60,6 @@ const Relax = ({ videoUrl, thumbnail, title, username, description, tags }) => {
             title={title}
             className="w-full h-full"
           />
-
-          {/* Title Overlay */}
-          {/* <div className="absolute top-4 left-0 w-full text-center px-2">
-            <h1 className="text-lg font-bold">{title}</h1>
-          </div> */}
-
-          {/* User Info and Actions */}
           <div className="absolute bottom-4 left-0 w-full px-4 flex items-center justify-between">
             {/* User Info */}
             <div className="flex items-center gap-2">
