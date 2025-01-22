@@ -67,7 +67,7 @@ function Sidebar() {
   return (
     <div className="relative">
       <button
-        className="md:hidden p-3 text-white fixed top-4 left-4 rounded-full shadow-lg z-50 transition-transform duration-300"
+        className="md:hidden p-3 text-white fixed top-4 left-1 rounded-full shadow-lg z-50 transition-transform duration-300"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
         <FaBars size={24} />
@@ -82,7 +82,7 @@ function Sidebar() {
         } transition-transform duration-300 md:translate-x-0 md:w-64 overflow-y-auto`}
       >
         {/* Sidebar Header */}
-        <div className="p-6 border-b border-gray-700">
+        <div className="p-6 border-b border-gray-700 ml-9 md:ml-0">
           <h1 className="text-3xl font-semibold text-gray-100">
             {userRole === "admin" ? "Admin Panel" : "Student Portal"}
           </h1>
@@ -92,7 +92,7 @@ function Sidebar() {
         </div>
 
         {/* Navigation Links */}
-        <nav className="mt-6 flex flex-col space-y-4 px-4">
+        <nav className="mt-6 flex flex-col space-y-4 px-4 ml-9 md:ml-0">
           {renderLinks()}
           <button
             className="flex items-center p-3 rounded-lg text-gray-200 hover:bg-red-600 hover:text-white transition-colors duration-300"

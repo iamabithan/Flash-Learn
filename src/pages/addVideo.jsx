@@ -41,8 +41,8 @@ const AddVideo = () => {
   });
 
   return (
-    <div className="p-6 d-flex justify-center items-center mx-auto bg-white shadow-md rounded-lg" style={{width:"50%", height:"max-content"}}>
-      <h1 className="text-2xl font-bold mb-4">Add Video</h1>
+    <div className="flex flex-col items-center bg-gradient-to-r from-blue-500 to-purple-500 text-white p-8 rounded-lg shadow-lg w-3/4 mx-auto max-w-4xl">
+      <h1 className="text-3xl font-bold mb-6">Add Video</h1>
       {notification.message && (
         <Notification
           message={notification.message}
@@ -51,7 +51,7 @@ const AddVideo = () => {
           onClose={() => setNotification({ message: '', type: '' })}
         />
       )}
-      <form onSubmit={formik.handleSubmit}>
+      <form className="w-full space-y-4" onSubmit={formik.handleSubmit}>
         <InputField
           type="text"
           name="subject"
@@ -60,12 +60,14 @@ const AddVideo = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.subject && formik.errors.subject}
+          className="w-full px-4 py-2 rounded-md text-black"
         />
         <InputDropdown
           options={['1', '6', '7', '8', '9', '10']}
           onSelect={(selectedOption) => formik.setFieldValue('grade', selectedOption)}
           placeholder="Select your grade"
           error={formik.touched.grade && formik.errors.grade}
+          className="w-full px-4 py-2 rounded-md text-black"
         />
         <InputField
           type="text"
@@ -75,6 +77,7 @@ const AddVideo = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.language && formik.errors.language}
+          className="w-full px-4 py-2 rounded-md text-black"
         />
         <InputField
           type="text"
@@ -84,6 +87,7 @@ const AddVideo = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.topic && formik.errors.topic}
+          className="w-full px-4 py-2 rounded-md text-black"
         />
         <InputField
           type="text"
@@ -93,6 +97,7 @@ const AddVideo = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.title && formik.errors.title}
+          className="w-full px-4 py-2 rounded-md text-black"
         />
         <InputField
           type="text"
@@ -102,6 +107,7 @@ const AddVideo = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.url && formik.errors.url}
+          className="w-full px-4 py-2 rounded-md text-black"
         />
         <InputField
           type="text"
@@ -111,8 +117,11 @@ const AddVideo = () => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           error={formik.touched.duration && formik.errors.duration}
+          className="w-full px-4 py-2 rounded-md text-black"
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg">
+          Submit
+        </Button>
       </form>
     </div>
   );

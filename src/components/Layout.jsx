@@ -6,7 +6,7 @@ function Layout() {
   return (
     <div className='flex min-h-screen w-full'>
       {/* Sidebar */}
-      <div className=' sm:block sm:w-64 bg-gray-800 text-white transition-all duration-300'>
+      <div className=' md:block md:w-64 text-white transition-all duration-300'>
         <Sidebar />
       </div>
       {/* Main Content */}
