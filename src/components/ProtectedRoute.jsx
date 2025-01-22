@@ -23,7 +23,6 @@ const ProtectedRoute = () => {
     return <div>Loading...</div>;
   }
 
-  // Redirect to login if not authenticated
   return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
 

@@ -14,5 +14,7 @@ export const getYtThumbnail = (urls) =>
   postRequest(URL_CONSTANTS.ytthumbnail, { urls });
 export const addRelaxVideo = (params) =>
   postRequest(URL_CONSTANTS.addRelax, params);
+export const assignAdmin = (uid) =>
+  postRequest(URL_CONSTANTS.createAdmin,  {uid});
 
  

@@ -41,7 +41,7 @@ const AddVideo = () => {
   });
 
   return (
-    <div className="p-6 d-flex justify-center items-center mx-auto bg-white shadow-md rounded-lg" style={{width:"50%", height:"max-content"}}>
+    <div className="p-6 d-flex justify-center items-center mx-auto bg-white shadow-md rounded-lg mt-12" style={{ height:"max-content"}}>
       <h1 className="text-2xl font-bold mb-4">Add Video</h1>
       {notification.message && (
         <Notification
@@ -62,7 +62,7 @@ const AddVideo = () => {
           error={formik.touched.subject && formik.errors.subject}
         />
         <InputDropdown
-          options={['1', '6', '7', '8', '9', '10']}
+          options={[ '6', '7', '8', '9', '10', '11', '12']}
           onSelect={(selectedOption) => formik.setFieldValue('grade', selectedOption)}
           placeholder="Select your grade"
           error={formik.touched.grade && formik.errors.grade}

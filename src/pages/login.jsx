@@ -7,6 +7,8 @@ import Button from '../components/Button';
 import { postLoginRequestData, verifyUser } from '../../api/create';
 import Notification from '../components/Status'; // Assuming you have a reusable notification component
 import { fetchUserRole, getCurrentUserRole } from '../components/userRole';
+import logo from '../assets/sns-logo.png';
+import './styles.css';
 
 const Login = () => {
   const [notification, setNotification] = useState({ message: '', type: '' });
@@ -19,52 +21,56 @@ const Login = () => {
 
   const handleLogin = async (values) => {
     try {
-      // API call to login
       const response = await postLoginRequestData(values);
-      console.log('Login Response:', response);
-
       const { token } = response;
-      localStorage.setItem('authToken', token); // Store token locally
-      await fetchUserRole(); // Call fetchUserRole to determine the user's role
-      const role = getCurrentUserRole(); // Get the updated role
-      localStorage.setItem('role',role)
+      localStorage.setItem('authToken', token);
+      await fetchUserRole();
+      const role = getCurrentUserRole();
+      localStorage.setItem('role', role);
 
       setNotification({ message: 'Login successful!', type: 'success' });
 
-      // Decode the token to get the user ID
       const payload = JSON.parse(atob(token.split('.')[1]));
       const uid = payload.user_id;
 
-      // Verify user role
-      const userResponse = await verifyUser(uid);
-
-      console.log('User Role Verification:', userResponse);
+      await verifyUser(uid);
 
       setTimeout(() => {
-        // Navigate based on role
         if (role === 'user') {
           navigate('/dashboard');
         } else if (role === 'admin') {
           navigate('/users');
         } else {
-          setNotification({ 
-            message: 'User role is not recognized.', 
-            type: 'error' 
+          setNotification({
+            message: 'User role is not recognized.',
+            type: 'error',
           });
         }
-      }, 1000); // Delay to show success notification
+      }, 1000);
     } catch (error) {
-      console.error('Login error:', error);
-      setNotification({ 
-        message: error.response?.data?.message || 'Invalid email or password.', 
-        type: 'error' 
+      setNotification({
+        message: error.response?.data?.message || 'Invalid email or password.',
+        type: 'error',
       });
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md">
+    <div className="min-h-screen flex flex-col lg:flex-row items-center justify-around bg-gray-100 w-full p-4">
+      {/* Left Section: Logo and Text */}
+      <div className="flex items-center lg:items-center justify-center text-center lg:text-left p-6">
+        <img 
+          src={logo} 
+          alt="Login" 
+          className="h-80 w-55 lg:h-80 lg:w-55 rounded-full transition-transform transform mb-4"
+        />
+        <p className="text-3xl lg:text-5xl font-bold text-blue-800 tracking-wide">
+          Flash <span className="text-blue-500">Learn</span>
+        </p>
+      </div>
+
+      {/* Right Section: Login Form */}
+      <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md glassy-card lg:ml-12 mt-6 lg:mt-0 mr-0 lg-mr-40">
         <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">Login</h1>
 
         {notification.message && (
@@ -101,7 +107,7 @@ const Login = () => {
                 onBlur={handleBlur}
                 error={touched.password && errors.password}
               />
-              <Button type="submit" className="mt-4">Login</Button>
+              <Button type="submit" className="mt-4 w-full">Login</Button>
             </Form>
           )}
         </Formik>

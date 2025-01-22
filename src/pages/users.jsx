@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Table from '../components/Table'; // Import the table component
-import { getAllUsers } from '../../api/list';
+import { getAllUsers, getUserDetailById } from '../../api/list';
 import { BsThreeDotsVertical } from 'react-icons/bs'; // Import the icon
+import { assignAdmin } from '../../api/create';
+import { deleteUserData } from '../../api/delete';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -12,6 +14,7 @@ const Users = () => {
     // Fetch users data when the component mounts
     const fetchData = async () => {
       const response = await getAllUsers();
+      
       setUsers(Object.entries(response.data).map(([id, user]) => ({ id, ...user })));
     };
 
@@ -30,13 +33,15 @@ const Users = () => {
     };
   }, []);
 
-  const handleActionClick = (userId, action) => {
+  const handleActionClick = async (userId, action) => {
     switch (action) {
       case 'delete':
+        await deleteUserData(userId)
+        window.location.reload()
         console.log(`Deleting user with ID: ${userId}`);
         break;
       case 'assignAdmin':
-        console.log(`Assigning admin privileges to user with ID: ${userId}`);
+        await assignAdmin(userId)
         break;
       default:
         break;
@@ -91,7 +96,7 @@ const Users = () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Users</h1>
+      <h1 className="text-2xl font-bold mb-4 ml-9 md:ml-0">Users</h1>
       <Table headers={headers} data={data} />
     </div>
   );
