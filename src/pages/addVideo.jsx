@@ -63,7 +63,7 @@ const AddVideo = () => {
           className="w-full px-4 py-2 rounded-md text-black"
         />
         <InputDropdown
-          options={['1', '6', '7', '8', '9', '10']}
+          options={[ '6', '7', '8', '9', '10', '11', '12']}
           onSelect={(selectedOption) => formik.setFieldValue('grade', selectedOption)}
           placeholder="Select your grade"
           error={formik.touched.grade && formik.errors.grade}

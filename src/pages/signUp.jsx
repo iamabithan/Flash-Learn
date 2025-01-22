@@ -95,7 +95,7 @@ const SignUp = () => {
 
                 {/* Grade Dropdown */}
                 <InputDropdown
-                  options={['1','6', '7', '8', '9', '10']}
+                  options={['6', '7', '8', '9', '10','11', '12']}
                   onSelect={(selectedOption) => setFieldValue('grade', selectedOption)}
                   placeholder='Select your grade'
                   error={touched.grade && errors.grade}
