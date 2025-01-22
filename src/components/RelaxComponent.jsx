@@ -73,12 +73,12 @@ const Relax = ({ videoUrl, thumbnail, title, username, description, tags }) => {
           <div className="absolute bottom-4 left-0 w-full px-4 flex items-center justify-between">
             {/* User Info */}
             <div className="flex items-center gap-2">
-              <img
+              {/* <img
                 src="https://via.placeholder.com/40"
                 alt="User Avatar"
                 className="w-10 h-10 rounded-full border border-gray-500"
                 loading="lazy"
-              />
+              /> */}
               {/* <div>
                 <p className="font-semibold">@{username}</p>
                 <button className="text-sm bg-red-500 px-3 py-1 rounded-full hover:bg-red-600">

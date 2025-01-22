@@ -1,99 +1,67 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FaBars, FaTachometerAlt, FaSpa, FaSignOutAlt, FaUsers, FaVideo } from 'react-icons/fa';
-import ConfirmationModal from './Model';
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { FaBars, FaTachometerAlt, FaSpa, FaSignOutAlt, FaUsers, FaVideo } from "react-icons/fa";
+import ConfirmationModal from "./Model";
 
 function Sidebar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [userRole, setUserRole] = useState('');
+  const [userRole, setUserRole] = useState("");
+  const location = useLocation(); // Get the current route path
 
-  // Fetch user role from localStorage
   useEffect(() => {
     const getRole = async () => {
       try {
-        const role = await localStorage.getItem('role');
-        setUserRole(role || ''); // Default to an empty string if role is not found
+        const role = await localStorage.getItem("role");
+        setUserRole(role || "");
         console.log({ role });
       } catch {
-        console.log('Failed to get the user role');
+        console.log("Failed to get the user role");
       }
     };
 
     getRole();
-  }, []); // Empty dependency array ensures this runs only once
+  }, []);
 
   const handleLogout = async () => {
     try {
-      await localStorage.removeItem('authToken');
-      await localStorage.removeItem('role');
-      console.log('User logged out successfully');
-      window.location.href = '/login'; // Redirect to login page
+      await localStorage.removeItem("authToken");
+      await localStorage.removeItem("role");
+      console.log("User logged out successfully");
+      window.location.href = "/login";
     } catch (error) {
-      console.error('Error logging out:', error);
+      console.error("Error logging out:", error);
     }
   };
 
   const renderLinks = () => {
-    if (userRole === 'admin') {
-      return (
-        <>
-          <Link
-            to="/users"
-            className="flex items-center p-3 rounded-lg text-gray-200 hover:bg-gray-700 hover:text-white transition-colors duration-300"
-            onClick={() => setIsSidebarOpen(false)}
-          >
-            <FaUsers size={20} className="mr-3" />
-            <span className="text-lg">Users</span>
-          </Link>
-          <Link
-            to="/add-video"
-            className="flex items-center p-3 rounded-lg text-gray-200 hover:bg-gray-700 hover:text-white transition-colors duration-300"
-            onClick={() => setIsSidebarOpen(false)}
-          >
-            <FaVideo size={20} className="mr-3" />
-            <span className="text-lg">Add Video</span>
-          </Link>
-          <Link
-            to="/add-relax-video"
-            className="flex items-center p-3 rounded-lg text-gray-200 hover:bg-gray-700 hover:text-white transition-colors duration-300"
-            onClick={() => setIsSidebarOpen(false)}
-          >
-            <FaSpa size={20} className="mr-3" />
-            <span className="text-lg">Add Relax Video</span>
-          </Link>
-          <Link
-            to="/all-videos"
-            className="flex items-center p-3 rounded-lg text-gray-200 hover:bg-gray-700 hover:text-white transition-colors duration-300"
-            onClick={() => setIsSidebarOpen(false)}
-          >
-            <FaVideo size={20} className="mr-3" />
-            <span className="text-lg">All Videos</span>
-          </Link>
-        </>
-      );
-    }
+    const links = userRole === "admin" 
+      ? [
+          { to: "/users", icon: <FaUsers size={20} />, label: "Users" },
+          { to: "/add-video", icon: <FaVideo size={20} />, label: "Add Video" },
+          { to: "/add-relax-video", icon: <FaSpa size={20} />, label: "Add Relax Video" },
+          { to: "/all-videos", icon: <FaVideo size={20} />, label: "All Videos" },
+        ]
+      : [
+          { to: "/dashboard", icon: <FaTachometerAlt size={20} />, label: "Dashboard" },
+          { to: "/relax", icon: <FaSpa size={20} />, label: "Relax" },
+        ];
 
-    return (
-      <>
-        <Link
-          to="/dashboard"
-          className="flex items-center p-3 rounded-lg text-gray-200 hover:bg-gray-700 hover:text-white transition-colors duration-300"
-          onClick={() => setIsSidebarOpen(false)}
-        >
-          <FaTachometerAlt size={20} className="mr-3" />
-          <span className="text-lg">Dashboard</span>
-        </Link>
-        <Link
-          to="/relax"
-          className="flex items-center p-3 rounded-lg text-gray-200 hover:bg-gray-700 hover:text-white transition-colors duration-300"
-          onClick={() => setIsSidebarOpen(false)}
-        >
-          <FaSpa size={20} className="mr-3" />
-          <span className="text-lg">Relax</span>
-        </Link>
-      </>
-    );
+    return links.map((link) => (
+      <Link
+        key={link.to}
+        to={link.to}
+        className={`flex items-center p-3 rounded-lg transition-colors duration-300 ${
+          location.pathname === link.to
+            ? "bg-white text-gray-900 font-bold shadow-md"
+            : "text-gray-200 hover:bg-gray-700 hover:text-white"
+        }`}
+        onClick={() => setIsSidebarOpen(false)}
+      >
+        <span className="mr-3">{link.icon}</span>
+        <span className="text-lg">{link.label}</span>
+      </Link>
+    ));
   };
 
   return (
@@ -107,18 +75,21 @@ function Sidebar() {
       </button>
 
       {/* Sidebar */}
-    <div
-      className={`fixed top-0 left-0 h-screen ${
-        userRole === 'admin' ? 'bg-pink-600' : 'bg-gray-900'
-      } text-white shadow-lg z-40 transform ${
-        isSidebarOpen ? 'translate-x-0' : 'md:translate-x-0 -translate-x-full'
-      } transition-transform duration-300 md:translate-x-0 md:w-64 overflow-y-auto`}
-    >
-
+      <div
+        className={`fixed top-0 left-0 h-screen ${
+          userRole === "admin" ? "bg-gray-900" : "bg-gray-900"
+        } text-white shadow-lg z-40 transform ${
+          isSidebarOpen ? "translate-x-0" : "md:translate-x-0 -translate-x-full"
+        } transition-transform duration-300 md:translate-x-0 md:w-64 overflow-y-auto`}
+      >
         {/* Sidebar Header */}
         <div className="p-6 border-b border-gray-700">
-          <h1 className="text-3xl font-semibold text-gray-100">{userRole === 'admin' ? 'Admin Panel' : 'Student Portal'}</h1>
-          <p className="text-sm text-gray-400">{userRole === 'admin' ? 'Manage the platform' : 'Your learning companion'}</p>
+          <h1 className="text-3xl font-semibold text-gray-100">
+            {userRole === "admin" ? "Admin Panel" : "Student Portal"}
+          </h1>
+          <p className="text-sm text-gray-400">
+            {userRole === "admin" ? "Manage the platform" : "Your learning companion"}
+          </p>
         </div>
 
         {/* Navigation Links */}
@@ -145,10 +116,19 @@ function Sidebar() {
       </div>
 
       {/* Overlay for Small Screens */}
-      {isSidebarOpen && <div className="fixed inset-0 bg-black bg-opacity-50 md:hidden z-30" onClick={() => setIsSidebarOpen(false)}></div>}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-50 md:hidden z-30"
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
 
       {/* Confirmation Modal */}
-      <ConfirmationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleLogout} />
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleLogout}
+      />
     </div>
   );
 }

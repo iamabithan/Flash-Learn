@@ -114,7 +114,7 @@ const CustomVideoPlayer = ({ videoUrl, thumbnailUrl, className = '', style = {} 
           type="range"
           value={progress}
           onChange={handleSeek}
-          className="w-full h-2 bg-blue-500 rounded-lg appearance-none cursor-pointer"
+          className="w-full h-2 bg-white rounded-lg appearance-none cursor-pointer"
         />
         <div className="flex justify-between items-center mt-3">
            {/* Time and Volume Controls */}
