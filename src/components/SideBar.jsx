@@ -109,9 +109,9 @@ function Sidebar() {
         {/* Footer */}
         <div className="absolute bottom-6 left-6">
           <p className="text-sm text-gray-600">
-            © 2024 <span className="text-gray-400">Your Company</span>
+            © 2025 <span className="text-gray-400">3 Dot Studios</span>
           </p>
-        </div>
+        </div>  
       </div>
 
       {/* Overlay for Small Screens */}
