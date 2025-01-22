@@ -78,7 +78,7 @@ const Dashboard = () => {
       <div className='flex-1'>
         {/* Header Section */}
         <div className='bg-gradient-to-r from-blue-600 to-purple-700 text-white p-6'>
-          <h1 className='text-4xl font-bold'>Welcome, {userDetails.name}!</h1>
+          <h1 className='text-4xl font-bold ml-9 md:ml-0'>Welcome, {userDetails.name}!</h1>
           {/* <p className="mt-2 text-lg">
             Grade: <span className="font-medium">{userDetails.grade}</span>
           </p>

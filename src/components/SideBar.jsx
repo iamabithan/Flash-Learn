@@ -67,13 +67,11 @@ function Sidebar() {
   return (
     <div className="relative">
       <button
-        className="md:hidden p-3 text-white fixed top-4 left-1 rounded-full shadow-lg z-50 transition-transform duration-300"
+        className="md:hidden p-3 text-white fixed top-4 left-1 rounded-full z-50 transition-transform duration-300"
         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       >
         <FaBars size={24} />
       </button>
-
-      {/* Sidebar */}
       <div
         className={`fixed top-0 left-0 h-screen ${
           userRole === "admin" ? "bg-gray-900" : "bg-gray-900"
