@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import InputDropdown from '../components/DropDown';
 import { postSignUpnRequestData } from '../../api/create';
 import Notification from '../components/Status';
+import logo from '../assets/sns-logo.png';
+import './styles.css'
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -38,8 +40,18 @@ const SignUp = () => {
         onClose={() => setNotification({ message: '', type: 'success' })}
       />
 
-      <div className='min-h-screen flex items-center justify-center bg-gray-100'>
-        <div className='w-full max-w-md p-8 bg-white rounded-lg shadow-md'>
+      <div className='min-h-screen flex flex-col lg:flex-row items-center justify-around bg-gray-100 w-full p-4'>
+        <div className="flex items-center lg:items-center justify-center text-center lg:text-left p-6">
+                <img 
+                  src={logo} 
+                  alt="Login" 
+                  className="h-80 w-55 lg:h-80 lg:w-55 rounded-full transition-transform transform mb-4"
+                />
+                <p className="text-3xl lg:text-5xl font-bold text-blue-800 tracking-wide">
+                  Flash <span className="text-blue-500">Learn</span>
+                </p>
+              </div>
+        <div className='w-full max-w-md p-8 bg-white rounded-lg shadow-md mr-0 lg-mr-40 glassy-card'>
           <h1 className='text-2xl font-bold text-center mb-6 text-gray-800'>Sign Up</h1>
           <Formik
             initialValues={{

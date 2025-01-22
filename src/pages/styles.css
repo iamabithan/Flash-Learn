@@ -1,0 +1,12 @@
+.glassy-card {
+  background: rgba(255, 255, 255, 0.15); /* Subtle white overlay */
+  backdrop-filter: blur(15px) saturate(150%); /* Blur and slight color saturation for richness */
+  -webkit-backdrop-filter: blur(15px) saturate(150%);
+  border-radius: 12px; /* Slightly larger rounded corners */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25); /* Softer, more diffused shadow */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Slight inner border for definition */
+  padding: 20px; /* Inner padding for content */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effect */
+}
+
+
