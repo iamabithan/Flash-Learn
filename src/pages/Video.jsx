@@ -23,7 +23,7 @@ const Content = () => {
         <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
           {/* Back Button */}
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/dashboard')}
             className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold mb-4"
           >
             <FaArrowLeft />
