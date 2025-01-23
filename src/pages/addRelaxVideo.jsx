@@ -42,7 +42,7 @@ const AddRelaxVideo = () => {
 
   return (
     <div className='d-flex justify-center items-center w-full'>
-      <div className='p-6 d-flex justify-center items-center bg-white shadow-md rounded-lg mt-12 mx-auto' style={{ height: 'max-content' }}>
+      <div className='p-6 mx-0 md:mx-80 d-flex justify-center items-center bg-white shadow-md rounded-lg mt-12 mx-auto' style={{ height: 'max-content' }}>
         <h1 className='text-2xl font-bold mb-4 ml-9 md:ml-0'>Add Relax Video</h1>
         {notification.message && (
           <Notification

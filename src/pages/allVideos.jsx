@@ -77,7 +77,7 @@ const AllVideos = () => {
     <div>
       <div className="p-6 flex-1">
         <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-semibold text-gray-800">All Videos</h2>
+          <h2 className="text-3xl ml-6 font-semibold text-gray-800">All Videos</h2>
           <select
             className="px-4 pl-2 py-2 bg-white border border-gray-300 rounded shadow focus:outline-none focus:ring focus:border-blue-300"
             value={selectedGrade}

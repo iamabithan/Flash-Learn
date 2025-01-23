@@ -41,7 +41,7 @@ const AddVideo = () => {
   });
 
   return (
-    <div className="p-6 d-flex justify-center items-center mx-auto bg-white shadow-md rounded-lg mt-12" style={{ height:"max-content"}}>
+    <div className="p-6 mx-0 md:mx-80 d-flex justify-center items-center mx-auto bg-white shadow-md rounded-lg mt-12" style={{ height:"max-content"}}>
       <h1 className="text-2xl font-bold mb-4">Add Video</h1>
       {notification.message && (
         <Notification
