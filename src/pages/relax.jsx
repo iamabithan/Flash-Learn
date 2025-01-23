@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Relax from '../components/RelaxComponent.jsx';
 import { getRelaxVideosByGrade, getUserDetailById } from '../../api/list.jsx';
+import './styles.css'
 
 const RelaxSection = () => {
   const [videos, setVideos] = useState([]);
@@ -38,7 +39,7 @@ const RelaxSection = () => {
   }, []);
 
   return (
-    <div className='h-screen overflow-y-scroll bg-gray-900 snap-y snap-mandatory'>
+    <div className='h-screen overflow-y-scroll background snap-y snap-mandatory'>
       {/* Error Handling */}
       {error && <div className="text-red-500 text-center">{error}</div>}
 

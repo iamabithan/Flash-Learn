@@ -47,7 +47,7 @@ const Relax = ({ videoUrl, thumbnail, title, username, description, tags }) => {
 
       {/* Video Content */}
       <div className="flex justify-center items-center flex-1 py-4">
-        <div className="relative w-[350px] h-[600px] bg-black text-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300">
+        <div className="relative w-[350px] h-[650px] bg-black text-white rounded-lg overflow-hidden shadow-lg transition-transform duration-300">
           {/* YouTube Embed (using iframe) */}
           <iframe
             ref={iframeRef} // Set the iframe reference

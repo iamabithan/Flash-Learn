@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Sidebar from './SideBar';
+import '../pages/styles.css';
 
 function Layout() {
   return (
@@ -10,7 +11,7 @@ function Layout() {
         <Sidebar />
       </div>
       {/* Main Content */}
-      <div className='flex-1'>
+      <div className='flex-1 background'>
         <main className='main-content bg-muted/40'>
           <Outlet />
         </main>

@@ -41,9 +41,16 @@ const AddRelaxVideo = () => {
   });
 
   return (
-    <div className='d-flex justify-center items-center w-full'>
-      <div className='p-6 d-flex justify-center items-center bg-white shadow-md rounded-lg mt-12 mx-auto' style={{ height: 'max-content' }}>
-        <h1 className='text-2xl font-bold mb-4 ml-9 md:ml-0'>Add Relax Video</h1>
+    <div className="min-h-screen bg-gray-100">
+      {/* Header */}
+      <header className="bg-gradient-to-r from-blue-600 to-purple-700 text-white p-6">
+        <h1 className="text-3xl font-bold">Relax Video Management</h1>
+      </header>
+
+      {/* Form Container */}
+      <div className="max-w-4xl mx-auto mt-8 bg-white shadow-md rounded-lg p-8">
+        <h2 className="text-2xl font-bold mb-4 text-center">Add Relax Video</h2>
+        
         {notification.message && (
           <Notification
             message={notification.message}
@@ -52,68 +59,78 @@ const AddRelaxVideo = () => {
             onClose={() => setNotification({ message: '', type: '' })}
           />
         )}
-        <form onSubmit={formik.handleSubmit}>
+        
+        <form onSubmit={formik.handleSubmit} className="space-y-6">
           <InputField
-            type='text'
-            name='subject'
-            placeholder='Enter subject'
+            type="text"
+            name="subject"
+            placeholder="Enter subject"
             value={formik.values.subject}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.subject && formik.errors.subject}
           />
+
           <InputDropdown
             options={['1', '6', '7', '8', '9', '10']}
             onSelect={(selectedOption) => formik.setFieldValue('grade', selectedOption)}
-            placeholder='Select your grade'
+            placeholder="Select your grade"
             error={formik.touched.grade && formik.errors.grade}
           />
+
           <InputField
-            type='text'
-            name='language'
-            placeholder='Enter language'
+            type="text"
+            name="language"
+            placeholder="Enter language"
             value={formik.values.language}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.language && formik.errors.language}
           />
+
           <InputField
-            type='text'
-            name='topic'
-            placeholder='Enter topic'
+            type="text"
+            name="topic"
+            placeholder="Enter topic"
             value={formik.values.topic}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.topic && formik.errors.topic}
           />
+
           <InputField
-            type='text'
-            name='title'
-            placeholder='Enter title'
+            type="text"
+            name="title"
+            placeholder="Enter title"
             value={formik.values.title}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.title && formik.errors.title}
           />
+
           <InputField
-            type='text'
-            name='url'
-            placeholder='Enter video URL'
+            type="text"
+            name="url"
+            placeholder="Enter video URL"
             value={formik.values.url}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.url && formik.errors.url}
           />
+
           <InputField
-            type='text'
-            name='duration'
-            placeholder='Enter duration'
+            type="text"
+            name="duration"
+            placeholder="Enter duration"
             value={formik.values.duration}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.duration && formik.errors.duration}
           />
-          <Button type='submit'>Submit</Button>
+
+          <div className="flex space-x-4">
+            <Button type="submit">Submit</Button>
+          </div>
         </form>
       </div>
     </div>
