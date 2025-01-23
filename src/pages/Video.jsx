@@ -16,11 +16,10 @@ const Content = () => {
 
   return (
     <div className="flex">
-      {/* Sidebar Space */}
-      <div className="w-64 fixed h-screen bg-gray-900 text-white shadow-lg flex flex-col justify-between hidden md:flex"></div>
+
 
       {/* Main Content */}
-      <div className="ml-64 p-6 flex flex-col items-center w-full h-full">
+      <div className="p-2 flex flex-col items-center w-full h-full">
         <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
           {/* Back Button */}
           <button
