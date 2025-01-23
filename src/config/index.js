@@ -4,8 +4,10 @@ const config = {
     apiUrl: 'https://10n8c9f374.execute-api.ap-south-1.amazonaws.com/dev/',
   },
   local: {
-    url: 'http://localhost:3030/',
-    apiUrl: 'http://localhost:3030/api/',
+    url: 'https://flashlearn-server.onrender.com',
+    apiUrl: 'https://flashlearn-server.onrender.com/api/',
+    // url: 'http://localhost:3030/',
+    // apiUrl: 'http://localhost:3030/api/',
     bucketName: 'flash-learn-dev',
     region: 'ap-south-1',
   },
