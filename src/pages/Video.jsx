@@ -19,12 +19,12 @@ const Content = () => {
 
 
       {/* Main Content */}
-      <div className="p-2 flex flex-col items-center w-full h-full">
-        <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg p-6">
+      <div className="p-2 flex mt-5 md:mt-0 flex-col items-center w-full h-full">
+        <div className="w-full  max-w-4xl bg-white rounded-lg shadow-lg p-0 md:p-6">
           {/* Back Button */}
           <button
             onClick={() => navigate('/dashboard')}
-            className="flex items-center gap-2 text-blue-600 hover:text-blue-800 font-semibold mb-4"
+            className="flex items-center gap-2 ml-9 text-blue-600 hover:text-blue-800 font-semibold mb-4"
           >
             <FaArrowLeft />
             Back to Dashboard
